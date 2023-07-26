@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: antiquewhite;
+        }
+        form{
+             border: 2px solid red;
+             width: 45%;
+             height: 40%;      
+             background-image: linear-gradient(145deg,#79E0EE, white,#FEA1A1); 
+             border-radius: 5px;
+        }
+        fieldset{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 5px;
+        }
+        legend{
+            font-size: 25px;
+            font-weight: bolder;
+            text-align: center;
+            padding: 2px;
+        
+        }
+        label{
+            font-weight: bolder;
+            font-size: 20px;
+            padding: 10px;
+        }
+        button{
+            font-size: 20px;
+            font-weight: bolder;
+            box-shadow: 5px 5px wheat;
+        }
+        p{
+            font-size: 20px;
+            font-weight: bolder;
+            padding: 5px; 
+            color: red; 
+        }
+        @media(max-width:1150px){
+            form{
+                background-image:none;
+                border: 0;
+            }
+            label{
+                background-image: linear-gradient(145deg,#79E0EE, white,#FEA1A1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <form >
+        <fieldset>
+            <legend>Age calcuation</legend>
+            <label >Enter the current date:
+                <input type="date" id="input1">
+            </label>
+            <label >Enter your date of birth:
+                <input type="date" id="input2">
+            </label>
+            <button type="button">Your age</button>
+            <p id="answer">Age</p>
+        </fieldset>
+        
+    </form>
+         <script>
+            let but=document.querySelector("button");
+            let p=document.getElementById("answer");
+            let result;
+           // console.log(but)
+           but.addEventListener("click",()=>{
+            let a=document.getElementById("input1").value;
+            let date=new Date(a)
+            //console.log(date)
+           let year=date.getFullYear();
+           //console.log(year)
+           let month=date.getMonth();
+          // console.log(month +1,typeof(month))
+           let cdate=date.getDate();
+           //console.log(cdate)
+
+             let b=document.getElementById("input2").value;
+             let date1= new Date(b)
+           // console.log(date1)
+           let year1=date1.getFullYear();
+           //console.log(year1)
+           let month1=date1.getMonth();
+           //console.log(month1 +1);
+           let dobdate=date1.getDate()
+           //console.log(dobdate)
+           let yourage=0;
+           let yourmonth=0;
+           let yourday=0;
+           if(cdate==dobdate && month==month1){
+            yourage=Number(year)-Number(year1);
+            //console.log(yourage);
+           }
+           else if(cdate>dobdate && month==month1){
+             yourage=(Number(year)-Number(year1));
+           // console.log(yourage)
+        }
+        else if(cdate>dobdate && month>month1){
+             yourage=(Number(year)-Number(year1));
+           // console.log(yourage)
+        }
+        else if(cdate==dobdate && month>month1){
+             yourage=(Number(year)-Number(year1));
+           // console.log(yourage)
+        }
+        else if(cdate<dobdate && month>month1){
+             yourage=(Number(year)-Number(year1));
+           // console.log(yourage)
+        }
+           else{
+            yourage=(Number(year)-Number(year1))-1;
+             //  console.log(yourage);
+           }
+            //.............................month...........................//
+           if(month==month1 && cdate==dobdate){
+             yourmonth=0;
+           // console.log(yourmonth)
+           }
+           else if(cdate>dobdate && month==month1){
+            yourmonth=Number(month)-Number(month1);
+           // console.log(yourmonth)
+           }
+           else if(cdate>dobdate && month>month1){
+            yourmonth=Number(month)-Number(month1);
+           // console.log(yourmonth)
+           }
+           else if(cdate<dobdate && month>month1){
+            yourmonth=(Number(month)-Number(month1))-1;
+           // console.log(yourmonth)
+           }
+           else if(month1>month && cdate>=dobdate){
+            yourmonth=(12-month1)+month
+           // console.log(yourmonth)
+           }
+           else if(month1>month && cdate<dobdate){
+            yourmonth=((12-month1)+month)-1
+           // console.log(yourmonth)
+           }
+           else if(month1==month && cdate<dobdate){
+            yourmonth=((12-month1)+month)-1
+           // console.log(yourmonth)
+           }
+
+           else if(month1>month){
+            yourmonth=((12-month1)+month)-1
+            //console.log(yourmonth)
+           }
+           //....................day....................//
+           if(month==month1 && cdate==dobdate){
+             yourday=0;
+            //console.log(yourday)
+           }
+            else if(cdate>dobdate){
+            yourday=cdate-dobdate;
+           // console.log(yourday)
+           }
+           else if(dobdate>cdate){
+            let ar=[31,31,28,31,30,31,30,31,31,30,31,30]
+           for(let i=0;i<ar.length;i++){
+            if(i==month){
+            yourday=(Number(ar[i])-dobdate)+cdate;
+            }
+            //console.log(yourday)
+        }
+    }
+           if(yourage<0){
+            alert("Plase check your dob")
+           }
+           result=`<strong>Year:${yourage} _ Month:${yourmonth} _ Days:${yourday}</strong>`;
+           p.innerHTML=result;
+
+        //    let ar=[31,28,31,30,31,30,31,31,30,31,30,31]
+        //    for(let i=0;i<ar.length;i++){
+        //     if(i==month){
+        //         result=(Number(ar[i])-dobdate)+cdate;
+        //     }
+        //     console.log(result)
+        //   }
+            })
+
+
+
+
+           //console.log(a1,typeof(a1))
+         </script>
+</body>
+</html>
